@@ -1,10 +1,11 @@
 import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import * as teamsApi from  '../../api/teams';
+import useTeams from '../../api/teams'
 
 
 export default function SelectTeam({onChanged}) {
+  const teamsApi = useTeams();
   const [value, setValue] = React.useState('');
   const [inputValue, setInputValue] = React.useState('');
 
@@ -38,7 +39,7 @@ export default function SelectTeam({onChanged}) {
     return () => {
       active = false;
     };
-  }, [loading]);
+  }, [getValues, loading]);
 
   return (
     <div>

@@ -14,11 +14,12 @@ export default function Match({match , deleteClick, editClick}) {
     const handleDelete = useCallback((event) => {
         event.preventDefault();
         deleteClick(id);
+        window.location.reload();
       }, [id, deleteClick]);
 
 
     return (
-        <section className='w-3/4 bg-gray-100 py-5 border-black border my-3 shadow-xl'>
+        <section className='w-3/4 bg-slate-200 py-5 border-black border my-4 shadow-xl'>
             <div className='flex flex-row justify-around'>
                 <div className='flex flex-col items-center justify-center w-1/3'>
                     <p className='text-3xl break-all text-center pl-4'>{homeTeam}</p>
@@ -27,10 +28,10 @@ export default function Match({match , deleteClick, editClick}) {
                     <p className='text-center mb-5 text-2xl'>{Datum}</p>
                     <p className='text-center mb-5 text-5xl'>{homeScore}-{awayScore}</p>
                     <div className='flex justify-center'>
-                        <IconButton aria-label="edit" onClick={editClick(id)}>
+                        {/* <IconButton aria-label="edit" color='warning' onClick={null}>
                             <EditIcon />
-                        </IconButton>
-                        <IconButton aria-label="delete" onClick={handleDelete}>
+                        </IconButton> */}
+                        <IconButton aria-label="delete" color="error" onClick={handleDelete}>
                             <DeleteIcon />
                         </IconButton>
                     </div>

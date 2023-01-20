@@ -1,3 +1,13 @@
+# Examenopdracht Front-end Web Development
+
+- Student: Sander Hermans
+- Studentennummer: 202073918
+- E-mailadres: sander.hermans@student.hogent.be
+
+## Vereisten
+Ik verwacht dat volgende software reeds geïnstalleerd is:
+
+- [Yarn](https://yarnpkg.com)
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -6,7 +16,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm start` or `yarn start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
@@ -68,3 +78,10 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+If you wish to have authentication, you can create a `.env` file in the root of the project and add the following:
+```	
+REACT_APP_AUTH0_DOMAIN=keepscore.eu.auth0.com
+REACT_APP_AUTH0_CLIENT_ID=UpfOGCHlBMhGKSEETrlsukAWnn3sJXzB
+REACT_APP_AUTH0_AUDIENCE=https://keepscore.sanderhermans.be
+```

@@ -5,7 +5,7 @@ function LogoutButton() {
   return (
     <button
       type="button"
-      className="btn btn-danger bg-orange-500 text-white rounded px-0.5 py-0.5 "
+      className="btn btn-danger bg-red-500 text-white rounded px-0.5 py-0.5 "
       onClick={() => logout({
         returnTo: window.location.origin,
       })}

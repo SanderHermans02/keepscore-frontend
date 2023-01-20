@@ -1,14 +1,16 @@
-import React from 'react'
+import * as React from 'react';
 import SelectTeam from '../misc/SelectTeam'
 import SelectDate from '../misc/DatePicker'
 import SetScore from '../misc/SelectScore'
+import Button from '@mui/material/Button';
 
-import * as matchApi from '../../api/matches'
+
+import useMatches from '../../api/matches'
 
 import Error from '../Error'
 
 export default function CreateMatch() {
-  
+  const matchApi = useMatches();
   const [teamidHome, setTeamidHome] = React.useState('')
   const [teamidAway, setTeamidAway] = React.useState('')
   const [date, setDate] = React.useState('')
@@ -40,8 +42,8 @@ export default function CreateMatch() {
       console.log(error)
       setError(error)
     }
-    
   }
+
   
   return (
     <>
@@ -51,7 +53,7 @@ export default function CreateMatch() {
       <div className='bg-white w-11/12 -py-2 navbar'>
         <div className='flex flex-row justify-evenly border-2 mx-20 border-black'>
           <div className='flex flex-col justify-center items-center'>
-            <SelectTeam onChanged={setTeamidHome}/>
+            <SelectTeam  onChanged={setTeamidHome}/>
           </div>
           <div className='mt-5 mb-5'>
             <div className='flex flex-col justify-center pt-4 pb-4'>
@@ -67,7 +69,7 @@ export default function CreateMatch() {
             </div>
           </div>
             <div className='flex justify-center mt-5'>
-              <button className=' bg-gray-500 hover:bg-gray-800 text-white font-bold py-4 px-8 rounded' onClick={Submit}>Submit</button>
+              <Button className='text-white font-bold py-4 px-8 rounded' variant ='contained' onClick={Submit}>Submit</Button>
             </div>
           </div>
           <div className='flex flex-col justify-center items-center'>

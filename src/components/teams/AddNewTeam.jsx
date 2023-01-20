@@ -3,7 +3,7 @@ import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-export default function AddNewTeam({onClick, onChange, teamName}){
+export default function AddNewTeam({onClick, onChange}){
   const [value, setValue] = useState("");
   
   function onClickLocal() {
@@ -13,7 +13,6 @@ export default function AddNewTeam({onClick, onChange, teamName}){
   const onChangeLocal = (event) => {
     onChange(event);
     setValue(event.target.value);
-    teamName = event.target.value;
   }
 
   return(
@@ -26,7 +25,7 @@ export default function AddNewTeam({onClick, onChange, teamName}){
         onChange={onChangeLocal}
         value={value}
       />
-      <Button size="medium" variant="outlined" sx={{height: 40}} onClick={onClickLocal}>Add Team</Button>
+      <Button size="medium" variant="contained" sx={{height: 40}} onClick={onClickLocal}>Add Team</Button>
     </div>
     </>
   )

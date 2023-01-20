@@ -2,10 +2,10 @@ import React from 'react'
 import Match from './Match'
 import { useState, useCallback } from 'react'
 
-
-import * as matchApi from '../../api/matches'
+import useMatches from '../../api/matches'
 
 export default function MatchesTable({matches}) {
+  const matchApi = useMatches();
   const [, setError] = useState(null);
   const handleDelete = useCallback(async (idToDelete) => {
     try {
@@ -15,19 +15,14 @@ export default function MatchesTable({matches}) {
       console.error(error);
       setError(error);
     }
-  }, []);
-
-  function editMatch(id) {
-    console.log(id)
-  }
+  }, [matchApi]);
 
   function getMatches() {
-    
     if(matches.length === 0) {
-      return <p>Could not find any matches</p>
+      return <p>No matches found</p>
     }else{
       return matches.map((match) => (
-         <Match key={match.id} match={match} deleteClick={handleDelete} editClick={editMatch} />
+         <Match key={match.id} match={match} deleteClick={handleDelete} />
       ))
     }
   }

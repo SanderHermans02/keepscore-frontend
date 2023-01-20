@@ -1,16 +1,18 @@
-import { useState, useMemo, useCallback, useEffect, useContext } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import AddNewTeam from './AddNewTeam'
 import TeamsTable from './TeamsTable';
 
-import * as teamsApi from  '../../api/teams';
+import useTeams from '../../api/teams';
+
 import Error from '../Error';
 export default function TeamList() {
+  const teamsApi = useTeams();
   const [teams, setTeams] = useState([]);
   const [error, setError] = useState(null);
   const [teamName, setTeamName] = useState('');
 
   useEffect(() => {
-    const fetchTransactions = async () => {
+    const fetchTeams = async () => {
       try{
         const data = await teamsApi.getAll();
         console.log(data);
@@ -21,8 +23,8 @@ export default function TeamList() {
       }
     };
 
-    fetchTransactions();
-  }, [])
+    fetchTeams();
+  }, [teamsApi])
 
   const clearText = () => {
     document.getElementById("teamtf").value = "";
@@ -47,7 +49,7 @@ export default function TeamList() {
     } catch (error) {
       setError(error);
     }
-  }, [teamName, teams]);
+  }, [teamName, teams, teamsApi]);
   
   const onChange = (async (event) => {
     setTeamName(event.target.value);

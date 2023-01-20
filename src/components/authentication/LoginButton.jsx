@@ -15,7 +15,7 @@ function LoginButton() {
   return (
     <button
       type="button"
-      className="btn btn-primary bg-orange-500 text-white rounded py-0.5 px-0.5"
+      className="btn btn-primary bg-red-500 text-white rounded py-0.5 px-0.5"
       onClick={handleLogin}
     >
       Log In

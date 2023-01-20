@@ -1,50 +1,90 @@
 import axios from 'axios';
-
+import {
+  useAuth0,
+} from '@auth0/auth0-react';
+import {
+  useCallback,
+  useMemo,
+} from 'react';
 // const baseUrl = `${process.env.REACT_APP_API_URL}/teams`;
 const baseUrl = `/api/teams`;
 const ultraBaseUrl = `http://localhost:9000`;
 
-export const getAll = async () => {
-  console.log(baseUrl)
+
+const useTeams = () => {
   const {
-    data
-  } = await axios.get(baseUrl, {
-    baseURL: ultraBaseUrl
-  });
+    getAccessTokenSilently
+  } = useAuth0();
 
-  return data.items;
+
+
+  const getAll = useCallback(async () => {
+    const token = await getAccessTokenSilently();
+    console.log(baseUrl)
+    const {
+      data
+    } = await axios.get(baseUrl, {
+      baseURL: ultraBaseUrl,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return data.items;
+  }, [getAccessTokenSilently]);
+
+  const getById = useCallback(async (id) => {
+    const token = await getAccessTokenSilently();
+    const {
+      data
+    } = await axios.get(`${baseUrl}/${id}`, {
+      baseURL: ultraBaseUrl,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return data;
+  }, [getAccessTokenSilently]);
+
+  const deleteById = useCallback(async (id) => {
+    const token = await getAccessTokenSilently();
+    console.log(id);
+    await axios.delete(
+      `${baseUrl}/${id}`, {
+        baseURL: ultraBaseUrl,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  }, [getAccessTokenSilently]);
+
+  const save = useCallback(async (team) => {
+    const token = await getAccessTokenSilently();
+    const {
+      id,
+      ...values
+    } = team;
+    await axios({
+      method: id ? 'PUT' : 'POST',
+      url: `${baseUrl}/${id ?? ''}`,
+      data: values,
+      baseURL: ultraBaseUrl,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return team;
+  }, [getAccessTokenSilently]);
+
+  const teamsApi = useMemo(() => ({
+    getAll,
+    getById,
+    deleteById,
+    save,
+  }), [getAll, getById, deleteById, save]);
+  return teamsApi;
 };
 
-export const getById = async (id) => {
-
-  const {
-    data
-  } = await axios.get(`${baseUrl}/${id}`, {
-    baseURL: ultraBaseUrl
-  });
-
-  return data;
-};
-
-export const deleteById = async (id) => {
-  await axios.delete(
-    `${baseUrl}/${id}`, {
-      baseURL: ultraBaseUrl
-    }
-  );
-};
-
-export const save = async (team) => {
-  console.log(team)
-  const {
-    id,
-    ...values
-  } = team;
-  await axios({
-    method: id ? 'PUT' : 'POST',
-    url: `${baseUrl}/${id ?? ''}`,
-    data: values,
-    baseURL: ultraBaseUrl
-  });
-  return team;
-};
+export default useTeams;

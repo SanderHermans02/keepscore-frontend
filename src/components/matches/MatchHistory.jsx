@@ -1,11 +1,13 @@
 import React from 'react'
 import { useState } from 'react'
 import MatchesTable from './MatchesTable'
-import * as matchApi from '../../api/matches'
-import * as teamsApi from  '../../api/teams';
+import useMatches from '../../api/matches'
+import useTeams from '../../api/teams'
 import Error from '../Error'
 
 export default function MatchHistory() {
+  const teamsApi = useTeams();
+  const matchApi = useMatches();
   const [matches, setMatches] = useState([])
   const [error, setError] = useState(null)
 
@@ -16,9 +18,8 @@ export default function MatchHistory() {
       try{
         const data = await matchApi.getAll()
         const teams = await teamsApi.getAll()
-
         let newMatches = []
-        data.forEach(match => {
+          data.items.forEach(match => {
           let newMatch = match
           newMatch.homeTeamName = teams.find(team => team.id === newMatch.homeTeamId).name
           newMatch.awayTeamName = teams.find(team => team.id === newMatch.awayTeamId).name
@@ -34,7 +35,7 @@ export default function MatchHistory() {
       
     };
     getData()
-  }, [])
+  }, [matchApi, teamsApi])
 
   return (
     <>
