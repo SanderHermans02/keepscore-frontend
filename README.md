@@ -1,11 +1,7 @@
-# Examenopdracht Front-end Web Development
+# KeepScore
 
-- Student: Sander Hermans
-- Studentennummer: 202073918
-- E-mailadres: sander.hermans@student.hogent.be
-
-## Vereisten
-Ik verwacht dat volgende software reeds geïnstalleerd is:
+## Requirements
+Following software has to be installed:
 
 - [Yarn](https://yarnpkg.com)
 # Getting Started with Create React App
